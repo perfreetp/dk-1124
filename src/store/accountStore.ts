@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { AccountInfo, AccountPersona, ColumnDirection, TargetAudience } from '../types';
 import { mockAccountInfo } from '../data/accountMock';
+import { storage, STORAGE_KEYS } from '../utils/storage';
 
 interface AccountState {
   accountInfo: AccountInfo;
@@ -9,50 +10,83 @@ interface AccountState {
   updateColumn: (column: ColumnDirection) => void;
   deleteColumn: (columnId: string) => void;
   updateAudience: (audience: TargetAudience) => void;
+  refreshAccountInfo: () => void;
 }
 
-export const useAccountStore = create<AccountState>((set) => ({
-  accountInfo: mockAccountInfo,
-  updatePersona: (persona) =>
-    set((state) => ({
+const loadAccountInfo = (): AccountInfo => {
+  return storage.getItem<AccountInfo>(STORAGE_KEYS.ACCOUNT_INFO, mockAccountInfo);
+};
+
+const saveAccountInfo = (info: AccountInfo) => {
+  storage.setItem(STORAGE_KEYS.ACCOUNT_INFO, info);
+};
+
+export const useAccountStore = create<AccountState>((set, get) => ({
+  accountInfo: loadAccountInfo(),
+  
+  updatePersona: (persona) => {
+    const newState = {
       accountInfo: {
-        ...state.accountInfo,
+        ...get().accountInfo,
         persona,
         updatedAt: new Date().toISOString().split('T')[0]
       }
-    })),
-  addColumn: (column) =>
-    set((state) => ({
+    };
+    set(newState);
+    saveAccountInfo(newState.accountInfo);
+  },
+  
+  addColumn: (column) => {
+    const newState = {
       accountInfo: {
-        ...state.accountInfo,
-        columns: [...state.accountInfo.columns, column],
+        ...get().accountInfo,
+        columns: [...get().accountInfo.columns, column],
         updatedAt: new Date().toISOString().split('T')[0]
       }
-    })),
-  updateColumn: (column) =>
-    set((state) => ({
+    };
+    set(newState);
+    saveAccountInfo(newState.accountInfo);
+  },
+  
+  updateColumn: (column) => {
+    const newState = {
       accountInfo: {
-        ...state.accountInfo,
-        columns: state.accountInfo.columns.map((c) =>
+        ...get().accountInfo,
+        columns: get().accountInfo.columns.map((c) =>
           c.id === column.id ? column : c
         ),
         updatedAt: new Date().toISOString().split('T')[0]
       }
-    })),
-  deleteColumn: (columnId) =>
-    set((state) => ({
+    };
+    set(newState);
+    saveAccountInfo(newState.accountInfo);
+  },
+  
+  deleteColumn: (columnId) => {
+    const newState = {
       accountInfo: {
-        ...state.accountInfo,
-        columns: state.accountInfo.columns.filter((c) => c.id !== columnId),
+        ...get().accountInfo,
+        columns: get().accountInfo.columns.filter((c) => c.id !== columnId),
         updatedAt: new Date().toISOString().split('T')[0]
       }
-    })),
-  updateAudience: (audience) =>
-    set((state) => ({
+    };
+    set(newState);
+    saveAccountInfo(newState.accountInfo);
+  },
+  
+  updateAudience: (audience) => {
+    const newState = {
       accountInfo: {
-        ...state.accountInfo,
+        ...get().accountInfo,
         audience,
         updatedAt: new Date().toISOString().split('T')[0]
       }
-    }))
+    };
+    set(newState);
+    saveAccountInfo(newState.accountInfo);
+  },
+  
+  refreshAccountInfo: () => {
+    set({ accountInfo: loadAccountInfo() });
+  }
 }));

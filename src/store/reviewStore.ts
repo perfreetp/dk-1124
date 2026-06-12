@@ -1,82 +1,51 @@
 import { create } from 'zustand';
-import { VideoData, PerformanceTemplate, ReviewStats } from '../types';
-import { mockVideoData, mockPerformanceTemplates, mockReviewStats } from '../data/reviewMock';
+import { ReviewRecord } from '../types';
+import { mockReviews } from '../data/reviewMock';
+import { storage, STORAGE_KEYS } from '../utils/storage';
 
 interface ReviewState {
-  videoData: VideoData[];
-  templates: PerformanceTemplate[];
-  stats: ReviewStats;
-  addVideoData: (data: VideoData) => void;
-  updateVideoData: (data: VideoData) => void;
-  deleteVideoData: (dataId: string) => void;
-  markAsTemplate: (dataId: string) => void;
-  markCanRemake: (dataId: string, remakeNotes: string) => void;
-  addTemplate: (template: PerformanceTemplate) => void;
-  deleteTemplate: (templateId: string) => void;
-  getTopPerforming: (limit: number) => VideoData[];
-  refreshStats: () => void;
+  reviews: ReviewRecord[];
+  addReview: (review: ReviewRecord) => void;
+  updateReview: (review: ReviewRecord) => void;
+  deleteReview: (reviewId: string) => void;
+  getReviewsByFilter: (filter: 'all' | 'template' | 'adaptable') => ReviewRecord[];
+  refreshReviews: () => void;
 }
 
+const loadReviews = () => storage.getItem<ReviewRecord[]>(STORAGE_KEYS.REVIEWS, mockReviews);
+
 export const useReviewStore = create<ReviewState>((set, get) => ({
-  videoData: mockVideoData,
-  templates: mockPerformanceTemplates,
-  stats: mockReviewStats,
-  addVideoData: (data) =>
-    set((state) => ({
-      videoData: [...state.videoData, data]
-    })),
-  updateVideoData: (data) =>
-    set((state) => ({
-      videoData: state.videoData.map((v) =>
-        v.id === data.id ? data : v
-      )
-    })),
-  deleteVideoData: (dataId) =>
-    set((state) => ({
-      videoData: state.videoData.filter((v) => v.id !== dataId)
-    })),
-  markAsTemplate: (dataId) =>
-    set((state) => ({
-      videoData: state.videoData.map((v) =>
-        v.id === dataId ? { ...v, isTemplate: true } : v
-      )
-    })),
-  markCanRemake: (dataId, remakeNotes) =>
-    set((state) => ({
-      videoData: state.videoData.map((v) =>
-        v.id === dataId ? { ...v, canRemake: true, remakeNotes } : v
-      )
-    })),
-  addTemplate: (template) =>
-    set((state) => ({
-      templates: [...state.templates, template]
-    })),
-  deleteTemplate: (templateId) =>
-    set((state) => ({
-      templates: state.templates.filter((t) => t.id !== templateId)
-    })),
-  getTopPerforming: (limit) => {
-    const state = get();
-    return state.videoData
-      .sort((a, b) => b.views - a.views)
-      .slice(0, limit);
+  reviews: loadReviews(),
+  
+  addReview: (review) => {
+    const newState = [...get().reviews, review];
+    set({ reviews: newState });
+    storage.setItem(STORAGE_KEYS.REVIEWS, newState);
   },
-  refreshStats: () => {
+  
+  updateReview: (review) => {
+    const newState = get().reviews.map((r) =>
+      r.id === review.id ? review : r
+    );
+    set({ reviews: newState });
+    storage.setItem(STORAGE_KEYS.REVIEWS, newState);
+  },
+  
+  deleteReview: (reviewId) => {
+    const newState = get().reviews.filter((r) => r.id !== reviewId);
+    set({ reviews: newState });
+    storage.setItem(STORAGE_KEYS.REVIEWS, newState);
+  },
+  
+  getReviewsByFilter: (filter) => {
     const state = get();
-    const totalVideos = state.videoData.length;
-    const avgViews = state.videoData.reduce((sum, v) => sum + v.views, 0) / totalVideos;
-    const avgCompletionRate = state.videoData.reduce((sum, v) => sum + v.completionRate, 0) / totalVideos;
-    const avgEngagementRate = state.videoData.reduce((sum, v) => sum + v.engagementRate, 0) / totalVideos;
-    
-    set({
-      stats: {
-        totalVideos,
-        avgViews,
-        avgCompletionRate,
-        avgEngagementRate,
-        topPerforming: state.videoData.sort((a, b) => b.views - a.views).slice(0, 3),
-        templates: state.templates
-      }
-    });
+    if (filter === 'all') return state.reviews;
+    if (filter === 'template') return state.reviews.filter(r => r.isTemplate);
+    if (filter === 'adaptable') return state.reviews.filter(r => r.isAdaptable);
+    return state.reviews;
+  },
+  
+  refreshReviews: () => {
+    set({ reviews: loadReviews() });
   }
 }));

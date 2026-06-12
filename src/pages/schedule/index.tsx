@@ -22,23 +22,25 @@ const SchedulePage: React.FC = () => {
   const [taskForm, setTaskForm] = useState<{
     title: string;
     description: string;
-    deadline: string;
+    scheduledDate: string;
+    scheduledTime: string;
     priority: PriorityLevel;
     status: TaskStatus;
     assignee: string;
     topicId: string;
-    notifyEnabled: boolean;
-    notifyTime: string;
+    reminder: boolean;
+    deadline: string;
   }>({
     title: '',
     description: '',
-    deadline: new Date().toISOString().split('T')[0],
+    scheduledDate: new Date().toISOString().split('T')[0],
+    scheduledTime: '10:00',
     priority: 'medium',
     status: 'pending',
     assignee: '',
     topicId: '',
-    notifyEnabled: true,
-    notifyTime: '10:00'
+    reminder: true,
+    deadline: new Date().toISOString().split('T')[0]
   });
 
   const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
@@ -50,7 +52,8 @@ const SchedulePage: React.FC = () => {
   const statusLabels: Record<TaskStatus, string> = {
     pending: '待开始',
     inProgress: '进行中',
-    completed: '已完成'
+    completed: '已完成',
+    cancelled: '已取消'
   };
 
   const today = new Date();
@@ -63,13 +66,14 @@ const SchedulePage: React.FC = () => {
       setTaskForm({
         title: selectedTask.title,
         description: selectedTask.description,
-        deadline: selectedTask.deadline,
-        priority: selectedTask.priority,
+        scheduledDate: selectedTask.scheduledDate,
+        scheduledTime: selectedTask.scheduledTime,
+        priority: selectedTask.priority || 'medium',
         status: selectedTask.status,
         assignee: selectedTask.assignee,
         topicId: selectedTask.topicId,
-        notifyEnabled: selectedTask.notifyEnabled,
-        notifyTime: selectedTask.notifyTime
+        reminder: selectedTask.reminder,
+        deadline: selectedTask.deadline
       });
     }
   }, [selectedTask, modalType]);
@@ -91,7 +95,7 @@ const SchedulePage: React.FC = () => {
         isCurrentMonth: false,
         isToday: date.toISOString().split('T')[0] === todayStr,
         isSelected: date.toISOString().split('T')[0] === selectedDateStr,
-        hasTask: tasks.some(t => t.deadline === date.toISOString().split('T')[0])
+        hasTask: tasks.some(t => t.scheduledDate === date.toISOString().split('T')[0])
       });
     }
     
@@ -102,7 +106,7 @@ const SchedulePage: React.FC = () => {
         isCurrentMonth: true,
         isToday: date.toISOString().split('T')[0] === todayStr,
         isSelected: date.toISOString().split('T')[0] === selectedDateStr,
-        hasTask: tasks.some(t => t.deadline === date.toISOString().split('T')[0])
+        hasTask: tasks.some(t => t.scheduledDate === date.toISOString().split('T')[0])
       });
     }
     
@@ -114,7 +118,7 @@ const SchedulePage: React.FC = () => {
         isCurrentMonth: false,
         isToday: date.toISOString().split('T')[0] === todayStr,
         isSelected: date.toISOString().split('T')[0] === selectedDateStr,
-        hasTask: tasks.some(t => t.deadline === date.toISOString().split('T')[0])
+        hasTask: tasks.some(t => t.scheduledDate === date.toISOString().split('T')[0])
       });
     }
     
@@ -138,13 +142,14 @@ const SchedulePage: React.FC = () => {
     setTaskForm({
       title: '',
       description: '',
-      deadline: new Date().toISOString().split('T')[0],
+      scheduledDate: selectedDateStr,
+      scheduledTime: '10:00',
       priority: 'medium',
       status: 'pending',
       assignee: '',
       topicId: '',
-      notifyEnabled: true,
-      notifyTime: '10:00'
+      reminder: true,
+      deadline: selectedDateStr
     });
     setShowModal(true);
   };
@@ -161,25 +166,27 @@ const SchedulePage: React.FC = () => {
       return;
     }
 
+    const topic = topics.find(t => t.id === taskForm.topicId);
+
     if (modalType === 'create') {
       const newTask: ScheduleTask = {
         id: `task_${Date.now()}`,
         title: taskForm.title,
         description: taskForm.description,
-        deadline: taskForm.deadline,
+        scheduledDate: taskForm.scheduledDate,
+        scheduledTime: taskForm.scheduledTime,
         priority: taskForm.priority,
         status: taskForm.status,
         assignee: taskForm.assignee || '未分配',
         topicId: taskForm.topicId,
-        notifyEnabled: taskForm.notifyEnabled,
-        notifyTime: taskForm.notifyTime,
-        createdAt: new Date().toISOString().split('T')[0],
-        updatedAt: new Date().toISOString().split('T')[0]
+        reminder: taskForm.reminder,
+        deadline: taskForm.deadline,
+        createdAt: new Date().toISOString().split('T')[0]
       };
       addTask(newTask);
       Taro.showToast({ title: '创建成功', icon: 'success' });
       
-      if (taskForm.notifyEnabled) {
+      if (taskForm.reminder) {
         Taro.showToast({ title: '已设置截止提醒', icon: 'none' });
       }
     } else if (modalType === 'edit' && selectedTask) {
@@ -187,14 +194,14 @@ const SchedulePage: React.FC = () => {
         ...selectedTask,
         title: taskForm.title,
         description: taskForm.description,
-        deadline: taskForm.deadline,
+        scheduledDate: taskForm.scheduledDate,
+        scheduledTime: taskForm.scheduledTime,
         priority: taskForm.priority,
         status: taskForm.status,
         assignee: taskForm.assignee || '未分配',
         topicId: taskForm.topicId,
-        notifyEnabled: taskForm.notifyEnabled,
-        notifyTime: taskForm.notifyTime,
-        updatedAt: new Date().toISOString().split('T')[0]
+        reminder: taskForm.reminder,
+        deadline: taskForm.deadline
       };
       updateTask(updatedTask);
       Taro.showToast({ title: '更新成功', icon: 'success' });
@@ -288,18 +295,18 @@ const SchedulePage: React.FC = () => {
                   key={task.id}
                   className={classnames(
                     styles.taskCard,
-                    `taskCard${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}`
+                    `taskCard${task.priority ? task.priority.charAt(0).toUpperCase() + task.priority.slice(1) : 'Medium'}`
                   )}
                 >
                   <View className={styles.taskHeader}>
                     <Text className={styles.taskTitle}>{task.title}</Text>
-                    <Text className={classnames(styles.taskPriority, `priority${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}`)}>
-                      {priorityLabels[task.priority]}
+                    <Text className={classnames(styles.taskPriority, `priority${task.priority ? task.priority.charAt(0).toUpperCase() + task.priority.slice(1) : 'Medium'}`)}>
+                      {priorityLabels[task.priority || 'medium']}
                     </Text>
                   </View>
                   <View className={styles.taskMeta}>
                     <Text className={classnames(styles.taskDeadline, isUrgent(task.deadline) && styles.taskDeadlineUrgent)}>
-                      ⏰ {task.deadline}
+                      📅 {task.scheduledDate} {task.scheduledTime}
                     </Text>
                     <Text className={styles.taskAssignee}>👤 {task.assignee}</Text>
                     {topic && (
@@ -362,9 +369,16 @@ const SchedulePage: React.FC = () => {
           </View>
 
           <View className={styles.formGroup}>
-            <Text className={styles.formLabel}>截止日期</Text>
+            <Text className={styles.formLabel}>排期日期</Text>
             <View className={styles.datePicker}>
-              <Text>{taskForm.deadline}</Text>
+              <Text>{taskForm.scheduledDate}</Text>
+            </View>
+          </View>
+
+          <View className={styles.formGroup}>
+            <Text className={styles.formLabel}>排期时间</Text>
+            <View className={styles.datePicker}>
+              <Text>{taskForm.scheduledTime}</Text>
             </View>
           </View>
 
@@ -386,7 +400,7 @@ const SchedulePage: React.FC = () => {
           <View className={styles.formGroup}>
             <Text className={styles.formLabel}>任务状态</Text>
             <View className={styles.statusOptions}>
-              {(['pending', 'inProgress', 'completed'] as TaskStatus[]).map((status) => (
+              {(['pending', 'inProgress', 'completed', 'cancelled'] as TaskStatus[]).map((status) => (
                 <View
                   key={status}
                   className={classnames(styles.statusOption, taskForm.status === status && styles.active)}
@@ -416,23 +430,19 @@ const SchedulePage: React.FC = () => {
           </View>
 
           <View className={styles.formGroup}>
-            <View className={styles.notificationToggle} onClick={() => setTaskForm(prev => ({ ...prev, notifyEnabled: !prev.notifyEnabled }))}>
+            <Text className={styles.formLabel}>截止日期</Text>
+            <View className={styles.datePicker}>
+              <Text>{taskForm.deadline}</Text>
+            </View>
+          </View>
+
+          <View className={styles.formGroup}>
+            <View className={styles.notificationToggle} onClick={() => setTaskForm(prev => ({ ...prev, reminder: !prev.reminder }))}>
               <Text className={styles.toggleLabel}>截止提醒</Text>
-              <View className={classnames(styles.toggleSwitch, taskForm.notifyEnabled && styles.active)}>
-                <View className={classnames(styles.toggleThumb, taskForm.notifyEnabled && styles.active)} />
+              <View className={classnames(styles.toggleSwitch, taskForm.reminder && styles.active)}>
+                <View className={classnames(styles.toggleThumb, taskForm.reminder && styles.active)} />
               </View>
             </View>
-            {taskForm.notifyEnabled && (
-              <View className={styles.formGroup}>
-                <Text className={styles.formLabel}>提醒时间</Text>
-                <Input
-                  className={styles.formInput}
-                  value={taskForm.notifyTime}
-                  onChange={(e) => setTaskForm(prev => ({ ...prev, notifyTime: e.detail.value }))}
-                  placeholder="例如: 10:00"
-                />
-              </View>
-            )}
           </View>
 
           <View className={styles.formActions}>

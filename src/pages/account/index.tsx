@@ -11,6 +11,7 @@ const AccountPage: React.FC = () => {
   const [showPersonaModal, setShowPersonaModal] = useState(false);
   const [showColumnModal, setShowColumnModal] = useState(false);
   const [showAudienceModal, setShowAudienceModal] = useState(false);
+  const [isEditingColumn, setIsEditingColumn] = useState(false);
   
   const [personaForm, setPersonaForm] = useState<AccountPersona>({
     id: '',
@@ -22,11 +23,11 @@ const AccountPage: React.FC = () => {
   });
   
   const [columnForm, setColumnForm] = useState<ColumnDirection>({
-    id: '',
+    id: `col_${Date.now()}`,
     name: '',
     description: '',
     frequency: '',
-    createdAt: ''
+    createdAt: new Date().toISOString().split('T')[0]
   });
   
   const [audienceForm, setAudienceForm] = useState<{
@@ -53,13 +54,9 @@ const AccountPage: React.FC = () => {
   }, [accountInfo.persona, showPersonaModal]);
 
   useEffect(() => {
-    setColumnForm({
-      id: `col_${Date.now()}`,
-      name: '',
-      description: '',
-      frequency: '',
-      createdAt: new Date().toISOString().split('T')[0]
-    });
+    if (!showColumnModal) {
+      setIsEditingColumn(false);
+    }
   }, [showColumnModal]);
 
   useEffect(() => {
@@ -83,8 +80,13 @@ const AccountPage: React.FC = () => {
       Taro.showToast({ title: '请输入栏目名称', icon: 'none' });
       return;
     }
-    addColumn(columnForm);
+    if (isEditingColumn) {
+      updateColumn(columnForm);
+    } else {
+      addColumn({ ...columnForm, id: `col_${Date.now()}`, createdAt: new Date().toISOString().split('T')[0] });
+    }
     setShowColumnModal(false);
+    setIsEditingColumn(false);
   };
 
   const handleSaveAudience = () => {
@@ -118,16 +120,8 @@ const AccountPage: React.FC = () => {
 
   const handleEditColumn = (column: ColumnDirection) => {
     setColumnForm({ ...column });
+    setIsEditingColumn(true);
     setShowColumnModal(true);
-  };
-
-  const handleSaveColumnEdit = () => {
-    if (!columnForm.name.trim()) {
-      Taro.showToast({ title: '请输入栏目名称', icon: 'none' });
-      return;
-    }
-    updateColumn(columnForm);
-    setShowColumnModal(false);
   };
 
   const handleDeleteColumn = (columnId: string) => {
@@ -140,6 +134,22 @@ const AccountPage: React.FC = () => {
         }
       }
     });
+  };
+
+  const resetColumnForm = () => {
+    setColumnForm({
+      id: `col_${Date.now()}`,
+      name: '',
+      description: '',
+      frequency: '',
+      createdAt: new Date().toISOString().split('T')[0]
+    });
+    setIsEditingColumn(false);
+  };
+
+  const handleAddColumnClick = () => {
+    resetColumnForm();
+    setShowColumnModal(true);
   };
 
   return (
@@ -166,16 +176,7 @@ const AccountPage: React.FC = () => {
       <View className={styles.section}>
         <View className={styles.sectionHeader}>
           <Text className={styles.sectionTitle}>栏目方向</Text>
-          <View className={styles.editBtn} onClick={() => {
-            setColumnForm({
-              id: `col_${Date.now()}`,
-              name: '',
-              description: '',
-              frequency: '',
-              createdAt: new Date().toISOString().split('T')[0]
-            });
-            setShowColumnModal(true);
-          }}>
+          <View className={styles.editBtn} onClick={handleAddColumnClick}>
             <Text className={styles.editBtnText}>添加</Text>
           </View>
         </View>
@@ -196,16 +197,7 @@ const AccountPage: React.FC = () => {
             </View>
           </View>
         ))}
-        <View className={styles.addBtn} onClick={() => {
-          setColumnForm({
-            id: `col_${Date.now()}`,
-            name: '',
-            description: '',
-            frequency: '',
-            createdAt: new Date().toISOString().split('T')[0]
-          });
-          setShowColumnModal(true);
-        }}>
+        <View className={styles.addBtn} onClick={handleAddColumnClick}>
           <Text className={styles.addBtnText}>+ 添加新栏目</Text>
         </View>
       </View>
@@ -287,7 +279,7 @@ const AccountPage: React.FC = () => {
 
       <Modal
         visible={showColumnModal}
-        title={columnForm.id.startsWith('col_') && !columnForm.name ? '添加栏目' : '编辑栏目'}
+        title={isEditingColumn ? '编辑栏目' : '添加栏目'}
         onClose={() => setShowColumnModal(false)}
       >
         <View className={styles.modalContent}>
@@ -322,7 +314,7 @@ const AccountPage: React.FC = () => {
             <View className={`${styles.formBtn} ${styles.formBtnSecondary}`} onClick={() => setShowColumnModal(false)}>
               <Text>取消</Text>
             </View>
-            <View className={`${styles.formBtn} ${styles.formBtnPrimary}`} onClick={columnForm.id.startsWith('col_') && !columnForm.createdAt ? handleSaveColumn : handleSaveColumnEdit}>
+            <View className={`${styles.formBtn} ${styles.formBtnPrimary}`} onClick={handleSaveColumn}>
               <Text>保存</Text>
             </View>
           </View>

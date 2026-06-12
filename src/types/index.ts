@@ -117,15 +117,18 @@ export interface Topic {
   publishedDate?: string;
 }
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled';
+export type TaskStatus = 'pending' | 'inProgress' | 'completed' | 'cancelled';
 export type TaskType = 'filming' | 'editing' | 'publishing';
+export type PriorityLevel = 'high' | 'medium' | 'low';
 
 export interface ScheduleTask {
   id: string;
+  title: string;
+  description: string;
   topicId: string;
-  topicTitle: string;
   type: TaskType;
   status: TaskStatus;
+  priority: PriorityLevel;
   scheduledDate: string;
   scheduledTime: string;
   assignee: string;
@@ -179,4 +182,20 @@ export interface ReviewStats {
   avgEngagementRate: number;
   topPerforming: VideoData[];
   templates: PerformanceTemplate[];
+}
+
+export interface ReviewRecord {
+  id: string;
+  videoTitle: string;
+  publishDate: string;
+  viewCount: string;
+  completeRate: string;
+  likeCount: string;
+  commentCount: string;
+  shareCount: string;
+  isTemplate: boolean;
+  isAdaptable: boolean;
+  notes: string;
+  topicId: string;
+  createdAt: string;
 }
