@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 import { useScheduleStore } from '../../store/scheduleStore';
 import { useTopicStore } from '../../store/topicStore';
 import Modal from '../../components/Modal';
+import DatePicker from '../../components/DatePicker';
 import { ScheduleTask, PriorityLevel, TaskStatus } from '../../types';
 
 type ModalType = 'create' | 'edit';
@@ -15,6 +16,9 @@ const SchedulePage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<ModalType>('create');
   const [selectedTask, setSelectedTask] = useState<ScheduleTask | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [datePickerType, setDatePickerType] = useState<'date' | 'datetime'>('datetime');
+  const [datePickerField, setDatePickerField] = useState<'scheduled' | 'deadline'>('scheduled');
 
   const { tasks, addTask, updateTask, deleteTask, getTasksByDate } = useScheduleStore();
   const { topics } = useTopicStore();
@@ -139,17 +143,18 @@ const SchedulePage: React.FC = () => {
 
   const openCreateModal = () => {
     setModalType('create');
+    const now = new Date();
     setTaskForm({
       title: '',
       description: '',
-      scheduledDate: selectedDateStr,
+      scheduledDate: now.toISOString().split('T')[0],
       scheduledTime: '10:00',
       priority: 'medium',
       status: 'pending',
       assignee: '',
       topicId: '',
       reminder: true,
-      deadline: selectedDateStr
+      deadline: now.toISOString().split('T')[0]
     });
     setShowModal(true);
   };
@@ -166,8 +171,6 @@ const SchedulePage: React.FC = () => {
       return;
     }
 
-    const topic = topics.find(t => t.id === taskForm.topicId);
-
     if (modalType === 'create') {
       const newTask: ScheduleTask = {
         id: `task_${Date.now()}`,
@@ -179,16 +182,14 @@ const SchedulePage: React.FC = () => {
         status: taskForm.status,
         assignee: taskForm.assignee || '未分配',
         topicId: taskForm.topicId,
+        type: 'filming',
+        notes: '',
         reminder: taskForm.reminder,
         deadline: taskForm.deadline,
         createdAt: new Date().toISOString().split('T')[0]
       };
       addTask(newTask);
       Taro.showToast({ title: '创建成功', icon: 'success' });
-      
-      if (taskForm.reminder) {
-        Taro.showToast({ title: '已设置截止提醒', icon: 'none' });
-      }
     } else if (modalType === 'edit' && selectedTask) {
       const updatedTask: ScheduleTask = {
         ...selectedTask,
@@ -223,6 +224,26 @@ const SchedulePage: React.FC = () => {
         }
       }
     });
+  };
+
+  const openDatePicker = (field: 'scheduled' | 'deadline') => {
+    setDatePickerField(field);
+    setDatePickerType(field === 'scheduled' ? 'datetime' : 'date');
+    setShowDatePicker(true);
+  };
+
+  const handleDateConfirm = (value: string) => {
+    if (datePickerField === 'scheduled') {
+      const [date, time] = value.split(' ');
+      setTaskForm(prev => ({
+        ...prev,
+        scheduledDate: date,
+        scheduledTime: time || prev.scheduledTime
+      }));
+    } else {
+      setTaskForm(prev => ({ ...prev, deadline: value }));
+    }
+    setShowDatePicker(false);
   };
 
   const isUrgent = (deadline: string) => {
@@ -369,16 +390,9 @@ const SchedulePage: React.FC = () => {
           </View>
 
           <View className={styles.formGroup}>
-            <Text className={styles.formLabel}>排期日期</Text>
-            <View className={styles.datePicker}>
-              <Text>{taskForm.scheduledDate}</Text>
-            </View>
-          </View>
-
-          <View className={styles.formGroup}>
-            <Text className={styles.formLabel}>排期时间</Text>
-            <View className={styles.datePicker}>
-              <Text>{taskForm.scheduledTime}</Text>
+            <Text className={styles.formLabel}>排期日期时间</Text>
+            <View className={styles.datePicker} onClick={() => openDatePicker('scheduled')}>
+              <Text>{taskForm.scheduledDate} {taskForm.scheduledTime}</Text>
             </View>
           </View>
 
@@ -431,7 +445,7 @@ const SchedulePage: React.FC = () => {
 
           <View className={styles.formGroup}>
             <Text className={styles.formLabel}>截止日期</Text>
-            <View className={styles.datePicker}>
+            <View className={styles.datePicker} onClick={() => openDatePicker('deadline')}>
               <Text>{taskForm.deadline}</Text>
             </View>
           </View>
@@ -455,6 +469,14 @@ const SchedulePage: React.FC = () => {
           </View>
         </View>
       </Modal>
+
+      <DatePicker
+        visible={showDatePicker}
+        type={datePickerType}
+        value={datePickerField === 'scheduled' ? `${taskForm.scheduledDate} ${taskForm.scheduledTime}` : taskForm.deadline}
+        onConfirm={handleDateConfirm}
+        onCancel={() => setShowDatePicker(false)}
+      />
     </ScrollView>
   );
 };

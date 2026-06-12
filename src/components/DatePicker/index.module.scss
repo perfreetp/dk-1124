@@ -1,0 +1,160 @@
+@use '@/styles/variables.scss' as *;
+
+.pickerContainer {
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  background: $color-bg-page;
+}
+
+.pickerText {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.pickerPanel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $color-bg-card;
+  border-radius: $radius-lg $radius-lg 0 0;
+  padding: $spacing-lg;
+  padding-bottom: calc(#{$spacing-lg} + env(safe-area-inset-bottom));
+  z-index: 1000;
+}
+
+.pickerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-lg;
+}
+
+.pickerTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.pickerBtn {
+  font-size: $font-size-md;
+  color: $color-primary;
+}
+
+.pickerCancel {
+  color: $color-text-secondary;
+}
+
+.dateGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: $spacing-xs;
+  margin-bottom: $spacing-md;
+}
+
+.dateCell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  border-radius: $radius-sm;
+
+  &.otherMonth {
+    color: $color-text-disabled;
+  }
+
+  &.today {
+    background: $color-tag-bg;
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  &.selected {
+    background: $color-primary;
+    color: $color-text-white;
+  }
+
+  &.disabled {
+    color: $color-text-disabled;
+    pointer-events: none;
+  }
+}
+
+.weekDayRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xs;
+}
+
+.weekDayCell {
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  padding: $spacing-xs 0;
+}
+
+.navRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.navBtn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navBtnText {
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+}
+
+.monthYearText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.timePicker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.timeSelect {
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  width: 120rpx;
+  text-align: center;
+}
+
+.timeSeparator {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  font-weight: $font-weight-bold;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
