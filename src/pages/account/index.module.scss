@@ -1,0 +1,183 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  padding: 0 $page-padding;
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.header {
+  padding: $spacing-lg 0;
+}
+
+.accountName {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.platform {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.section {
+  margin-bottom: $spacing-lg;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.editBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.editBtnText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.personaCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.personaName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.personaDesc {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+}
+
+.personaStyle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.columnCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-xs;
+}
+
+.columnName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.columnFreq {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  background: $color-tag-bg;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.columnDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.audienceCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.audienceRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.audienceLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  width: 120rpx;
+}
+
+.audienceValue {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.interestTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+.interestTag {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  background: $color-tag-bg;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-xs;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 2rpx dashed $color-border;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+    background: $color-bg-hover;
+  }
+}
+
+.addBtnText {
+  font-size: $font-size-md;
+  color: $color-primary;
+}

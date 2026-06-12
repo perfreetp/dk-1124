@@ -1,0 +1,62 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 160rpx;
+}
+
+.label {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-xs;
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+}
+
+.value {
+  font-size: $font-size-xl;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.valueHighlight {
+  font-size: $font-size-xl;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.unit {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.trendUp {
+  margin-left: $spacing-xs;
+  color: $color-success;
+}
+
+.trendDown {
+  margin-left: $spacing-xs;
+  color: $color-error;
+}
+
+.trendStable {
+  margin-left: $spacing-xs;
+  color: $color-text-tertiary;
+}
+
+.trendIcon {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}

@@ -1,0 +1,116 @@
+@use '@/styles/variables.scss' as *;
+
+page {
+  background-color: $color-bg-page;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+}
+
+.container {
+  padding: 0 $page-padding;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.pageTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textPrimary {
+  color: $color-text-primary;
+}
+
+.textSecondary {
+  color: $color-text-secondary;
+}
+
+.textTertiary {
+  color: $color-text-tertiary;
+}
+
+.textPrimaryColor {
+  color: $color-primary;
+}
+
+.textSuccess {
+  color: $color-success;
+}
+
+.textWarning {
+  color: $color-warning;
+}
+
+.textError {
+  color: $color-error;
+}
+
+.mb8 {
+  margin-bottom: $spacing-xs;
+}
+
+.mb16 {
+  margin-bottom: $spacing-sm;
+}
+
+.mb24 {
+  margin-bottom: $spacing-md;
+}
+
+.mb32 {
+  margin-bottom: $spacing-lg;
+}
+
+.mt8 {
+  margin-top: $spacing-xs;
+}
+
+.mt16 {
+  margin-top: $spacing-sm;
+}
+
+.mt24 {
+  margin-top: $spacing-md;
+}
+
+.mt32 {
+  margin-top: $spacing-lg;
+}

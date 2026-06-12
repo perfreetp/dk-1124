@@ -1,0 +1,330 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  padding: 0 $page-padding;
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.tabs {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-xs;
+  margin: $spacing-lg 0;
+  box-shadow: $shadow-card;
+}
+
+.tab {
+  flex: 1;
+  padding: $spacing-sm;
+  text-align: center;
+  border-radius: $radius-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.tabActive {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+}
+
+.tabText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.tabTextActive {
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.section {
+  margin-bottom: $spacing-lg;
+}
+
+.videoCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.videoHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.videoTitle {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  flex: 1;
+  @include text-ellipsis-multi(2);
+  line-height: $line-height-normal;
+}
+
+.videoPlatform {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  background: $color-tag-bg;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+  margin-left: $spacing-sm;
+}
+
+.videoMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.videoMetaItem {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.videoAuthor {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+}
+
+.videoTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.videoTag {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.keywordCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.keywordContent {
+  flex: 1;
+}
+
+.keywordText {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-xs;
+}
+
+.keywordMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.keywordCategory {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.keywordVolume {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.keywordTrend {
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-xs;
+}
+
+.trendUp {
+  color: $color-success;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.trendDown {
+  color: $color-error;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.trendStable {
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+}
+
+.trendIcon {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.questionCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.questionText {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+}
+
+.questionMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.questionSource {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.questionLikes {
+  font-size: $font-size-sm;
+  color: $color-warning;
+}
+
+.questionUsed {
+  font-size: $font-size-sm;
+  color: $color-success;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.inspirationCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.inspirationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.inspirationContent {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  flex: 1;
+}
+
+.inspirationSource {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.inspirationFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inspirationDate {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.inspirationConverted {
+  font-size: $font-size-sm;
+  color: $color-success;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.convertBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  border-radius: $radius-xs;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.convertBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 2rpx dashed $color-border;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+    background: $color-bg-hover;
+  }
+}
+
+.addBtnText {
+  font-size: $font-size-md;
+  color: $color-primary;
+}
+
+.modalContent {
+  padding: $spacing-lg;
+}
+
+.modalHint {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  text-align: center;
+}

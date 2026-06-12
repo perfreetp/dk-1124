@@ -1,0 +1,277 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  padding: 0 $page-padding;
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.header {
+  padding: $spacing-lg 0;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.statsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.statCard {
+  width: calc(50% - $spacing-xs);
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: $font-size-xl;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.statUnit {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.statLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.statTrend {
+  display: flex;
+  align-items: center;
+  margin-top: $spacing-xs;
+}
+
+.trendUp {
+  color: $color-success;
+}
+
+.trendDown {
+  color: $color-error;
+}
+
+.trendIcon {
+  font-size: $font-size-sm;
+  margin-right: 4rpx;
+}
+
+.trendText {
+  font-size: $font-size-xs;
+}
+
+.section {
+  margin-bottom: $spacing-lg;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.sectionAction {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.sectionActionText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.videoCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.videoHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.videoTitle {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  flex: 1;
+  @include text-ellipsis-multi(2);
+  line-height: $line-height-normal;
+}
+
+.videoDate {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-left: $spacing-sm;
+}
+
+.videoStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.videoStatItem {
+  display: flex;
+  align-items: center;
+}
+
+.videoStatValue {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.videoStatLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-left: 4rpx;
+}
+
+.videoTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  margin-top: $spacing-sm;
+}
+
+.templateTag {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  background: $color-tag-bg;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.remakeTag {
+  font-size: $font-size-xs;
+  color: $color-warning;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.templateCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.templateHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.templateName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.templateAvgViews {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  background: $color-tag-bg;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.templateDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+}
+
+.templateFactors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.factorTag {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 2rpx dashed $color-border;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+    background: $color-bg-hover;
+  }
+}
+
+.addBtnText {
+  font-size: $font-size-md;
+  color: $color-primary;
+}
+
+.modalContent {
+  padding: $spacing-lg;
+}
+
+.modalHint {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  text-align: center;
+}

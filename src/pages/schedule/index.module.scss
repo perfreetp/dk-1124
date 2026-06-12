@@ -1,0 +1,327 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  padding: 0 $page-padding;
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg 0;
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.monthSelector {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.monthBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-bg-card;
+  border-radius: $radius-xs;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.monthBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.monthText {
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.deadlineAlert {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-lg;
+  border-left: 4rpx solid $color-warning;
+}
+
+.alertTitle {
+  font-size: $font-size-md;
+  color: $color-warning;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-xs;
+}
+
+.alertContent {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.calendar {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-lg;
+}
+
+.weekDays {
+  display: flex;
+  margin-bottom: $spacing-sm;
+}
+
+.weekDay {
+  flex: 1;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  padding: $spacing-xs;
+}
+
+.daysGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dayCell {
+  width: calc(100% / 7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-xs;
+  margin-bottom: $spacing-xs;
+  border-radius: $radius-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.dayCellToday {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+}
+
+.dayCellHasTask {
+  background: $color-bg-hover;
+}
+
+.dayCellDeadline {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.dayNumber {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.dayNumberToday {
+  color: $color-text-white;
+}
+
+.dayIndicator {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: $radius-round;
+  margin-top: 4rpx;
+}
+
+.indicatorTask {
+  background: $color-primary;
+}
+
+.indicatorDeadline {
+  background: $color-warning;
+}
+
+.indicatorCompleted {
+  background: $color-success;
+}
+
+.selectedDate {
+  margin-bottom: $spacing-lg;
+}
+
+.selectedDateHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.selectedDateTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.addTaskBtn {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.addTaskBtnText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.taskList {
+  margin-bottom: $spacing-lg;
+}
+
+.taskCard {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-sm;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.95;
+  }
+}
+
+.taskHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.taskTitle {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  flex: 1;
+  @include text-ellipsis-multi(2);
+  line-height: $line-height-normal;
+}
+
+.taskType {
+  font-size: $font-size-sm;
+  padding: 2rpx $spacing-xs;
+  border-radius: $radius-xs;
+  margin-left: $spacing-sm;
+}
+
+.typeFilming {
+  background: rgba(245, 158, 11, 0.1);
+  color: $color-warning;
+}
+
+.typeEditing {
+  background: rgba(99, 102, 241, 0.1);
+  color: $color-primary;
+}
+
+.typePublishing {
+  background: rgba(16, 185, 129, 0.1);
+  color: $color-success;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.taskMetaItem {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.taskStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: $spacing-sm;
+  border-top: 1rpx solid $color-divider;
+}
+
+.statusBadge {
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-xs;
+}
+
+.statusPending {
+  background: $color-bg-hover;
+  color: $color-text-tertiary;
+}
+
+.statusInProgress {
+  background: rgba(59, 130, 246, 0.1);
+  color: $color-info;
+}
+
+.statusCompleted {
+  background: rgba(16, 185, 129, 0.1);
+  color: $color-success;
+}
+
+.statusText {
+  font-size: $font-size-sm;
+}
+
+.taskDeadline {
+  font-size: $font-size-sm;
+  color: $color-warning;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl 0;
+}
+
+.emptyIcon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-md;
+}
+
+.emptyIconText {
+  font-size: 32rpx;
+  color: $color-text-tertiary;
+}
+
+.emptyTitle {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.modalContent {
+  padding: $spacing-lg;
+}
+
+.modalHint {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  text-align: center;
+}

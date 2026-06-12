@@ -1,0 +1,64 @@
+@use '@/styles/variables.scss' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.container {
+  width: 90%;
+  max-width: $max-content-width;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-popup;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg;
+  border-bottom: 1rpx solid $color-border;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.closeBtn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.closeText {
+  font-size: 32rpx;
+  color: $color-text-secondary;
+  font-weight: $font-weight-medium;
+}
+
+.content {
+  padding: $spacing-lg;
+  max-height: 60vh;
+  overflow-y: auto;
+}
