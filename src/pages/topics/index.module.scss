@@ -147,8 +147,284 @@
   padding: $spacing-lg;
 }
 
-.modalHint {
+.formGroup {
+  margin-bottom: $spacing-lg;
+}
+
+.formLabel {
   font-size: $font-size-md;
-  color: $color-text-tertiary;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.formInput {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+  min-height: 160rpx;
+}
+
+.formSelect {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+}
+
+.formActions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.formBtn {
+  flex: 1;
+  padding: $spacing-md;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.formBtnPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  color: $color-text-white;
+}
+
+.formBtnSecondary {
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+}
+
+.formBtnDanger {
+  background: $color-error;
+  color: $color-text-white;
+}
+
+.titleCandidateItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-xs;
+}
+
+.titleInput {
+  flex: 1;
+  padding: $spacing-sm;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+}
+
+.scoreInput {
+  width: 80rpx;
+  padding: $spacing-xs;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
   text-align: center;
+}
+
+.titleActions {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.titleActionBtn {
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-xs;
+  font-size: $font-size-xs;
+}
+
+.titleActionSelect {
+  background: $color-tag-bg;
+  color: $color-primary;
+}
+
+.titleActionDelete {
+  background: rgba(239, 68, 68, 0.1);
+  color: $color-error;
+}
+
+.addTitleBtn {
+  padding: $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-align: center;
+}
+
+.scriptPointItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-xs;
+}
+
+.scriptInput {
+  flex: 1;
+  padding: $spacing-sm;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+}
+
+.durationInput {
+  width: 100rpx;
+  padding: $spacing-xs;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  text-align: center;
+}
+
+.addScriptBtn {
+  padding: $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-align: center;
+}
+
+.materialItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-xs;
+}
+
+.materialInput {
+  flex: 1;
+  padding: $spacing-sm;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+}
+
+.materialTypeSelect {
+  padding: $spacing-xs $spacing-sm;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+}
+
+.addMaterialBtn {
+  padding: $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  text-align: center;
+}
+
+.difficultyOptions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.difficultyOption {
+  flex: 1;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  text-align: center;
+  font-size: $font-size-sm;
+  border: 2rpx solid $color-border;
+}
+
+.difficultyOption.active {
+  background: $color-tag-bg;
+  border-color: $color-primary;
+  color: $color-primary;
+}
+
+.detailSection {
+  margin-bottom: $spacing-lg;
+}
+
+.detailTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: $spacing-md;
+}
+
+.detailLabel {
+  width: 120rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.detailValue {
+  flex: 1;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.detailActions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.detailActionBtn {
+  flex: 1;
+  padding: $spacing-md;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  text-align: center;
+}
+
+.detailActionEdit {
+  background: $color-tag-bg;
+  color: $color-primary;
+}
+
+.detailActionDelete {
+  background: rgba(239, 68, 68, 0.1);
+  color: $color-error;
 }

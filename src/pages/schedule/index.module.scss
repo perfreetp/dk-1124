@@ -19,272 +19,289 @@
   color: $color-text-primary;
 }
 
-.monthSelector {
-  display: flex;
-  align-items: center;
-  gap: $spacing-sm;
-}
-
-.monthBtn {
-  padding: $spacing-xs $spacing-sm;
-  background: $color-bg-card;
-  border-radius: $radius-xs;
-  box-shadow: $shadow-card;
-  transition: all $transition-base;
-
-  &:active {
-    opacity: 0.8;
-  }
-}
-
-.monthBtnText {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.monthText {
-  font-size: $font-size-lg;
-  color: $color-text-primary;
-  font-weight: $font-weight-medium;
-}
-
-.deadlineAlert {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-  border-radius: $radius-md;
-  padding: $spacing-md;
-  margin-bottom: $spacing-lg;
-  border-left: 4rpx solid $color-warning;
-}
-
-.alertTitle {
-  font-size: $font-size-md;
-  color: $color-warning;
-  font-weight: $font-weight-medium;
-  margin-bottom: $spacing-xs;
-}
-
-.alertContent {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.calendar {
-  background: $color-bg-card;
-  border-radius: $radius-md;
-  padding: $spacing-md;
-  box-shadow: $shadow-card;
-  margin-bottom: $spacing-lg;
-}
-
-.weekDays {
-  display: flex;
-  margin-bottom: $spacing-sm;
-}
-
-.weekDay {
-  flex: 1;
-  text-align: center;
-  font-size: $font-size-sm;
-  color: $color-text-tertiary;
-  padding: $spacing-xs;
-}
-
-.daysGrid {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.dayCell {
-  width: calc(100% / 7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: $spacing-xs;
-  margin-bottom: $spacing-xs;
-  border-radius: $radius-sm;
-  transition: all $transition-base;
-
-  &:active {
-    opacity: 0.8;
-  }
-}
-
-.dayCellToday {
+.addBtn {
+  padding: $spacing-sm $spacing-md;
   background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  border-radius: $radius-button;
+  box-shadow: 0 4rpx 12rpx rgba(99, 102, 241, 0.3);
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
 }
 
-.dayCellHasTask {
-  background: $color-bg-hover;
-}
-
-.dayCellDeadline {
-  background: rgba(245, 158, 11, 0.1);
-}
-
-.dayNumber {
+.addBtnText {
   font-size: $font-size-md;
-  color: $color-text-primary;
+  color: $color-text-white;
   font-weight: $font-weight-medium;
 }
 
-.dayNumberToday {
-  color: $color-text-white;
-}
-
-.dayIndicator {
-  width: 8rpx;
-  height: 8rpx;
-  border-radius: $radius-round;
-  margin-top: 4rpx;
-}
-
-.indicatorTask {
-  background: $color-primary;
-}
-
-.indicatorDeadline {
-  background: $color-warning;
-}
-
-.indicatorCompleted {
-  background: $color-success;
-}
-
-.selectedDate {
+.calendarSection {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-md;
   margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
 }
 
-.selectedDateHeader {
+.calendarHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: $spacing-md;
 }
 
-.selectedDateTitle {
+.calendarTitle {
   font-size: $font-size-lg;
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
 }
 
-.addTaskBtn {
-  padding: $spacing-xs $spacing-sm;
-  background: $color-tag-bg;
-  border-radius: $radius-xs;
-  transition: all $transition-base;
+.calendarNav {
+  display: flex;
+  gap: $spacing-sm;
+}
 
-  &:active {
-    opacity: 0.8;
+.navBtn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navBtnText {
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+}
+
+.monthYear {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.weekDays {
+  display: flex;
+  margin-bottom: $spacing-xs;
+}
+
+.weekDay {
+  flex: 1;
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  padding: $spacing-xs 0;
+}
+
+.calendarGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendarDay {
+  width: calc(100% / 7);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  position: relative;
+  cursor: pointer;
+
+  &.otherMonth {
+    color: $color-text-disabled;
+  }
+
+  &.today {
+    background: $color-tag-bg;
+    border-radius: $radius-round;
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  &.selected {
+    background: $color-primary;
+    border-radius: $radius-round;
+    color: $color-text-white;
+  }
+
+  &.hasTask {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4rpx;
+      width: 8rpx;
+      height: 8rpx;
+      border-radius: $radius-round;
+      background: $color-primary;
+    }
   }
 }
 
-.addTaskBtnText {
-  font-size: $font-size-sm;
-  color: $color-primary;
+.taskListSection {
+  margin-bottom: $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
 }
 
 .taskList {
-  margin-bottom: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
 }
 
 .taskCard {
   background: $color-bg-card;
   border-radius: $radius-md;
-  padding: $spacing-lg;
+  padding: $spacing-md;
   box-shadow: $shadow-card;
-  margin-bottom: $spacing-sm;
-  transition: all $transition-base;
+  border-left: 6rpx solid;
+}
 
-  &:active {
-    opacity: 0.95;
-  }
+.taskCardHigh {
+  border-left-color: $color-error;
+}
+
+.taskCardMedium {
+  border-left-color: $color-warning;
+}
+
+.taskCardLow {
+  border-left-color: $color-success;
 }
 
 .taskHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: $spacing-sm;
 }
 
 .taskTitle {
   font-size: $font-size-md;
-  color: $color-text-primary;
   font-weight: $font-weight-medium;
-  flex: 1;
-  @include text-ellipsis-multi(2);
-  line-height: $line-height-normal;
+  color: $color-text-primary;
 }
 
-.taskType {
-  font-size: $font-size-sm;
-  padding: 2rpx $spacing-xs;
+.taskPriority {
+  font-size: $font-size-xs;
+  padding: $spacing-xs $spacing-sm;
   border-radius: $radius-xs;
-  margin-left: $spacing-sm;
 }
 
-.typeFilming {
-  background: rgba(245, 158, 11, 0.1);
+.priorityHigh {
+  background: rgba(239, 68, 68, 0.1);
+  color: $color-error;
+}
+
+.priorityMedium {
+  background: rgba(251, 191, 36, 0.1);
   color: $color-warning;
 }
 
-.typeEditing {
-  background: rgba(99, 102, 241, 0.1);
-  color: $color-primary;
-}
-
-.typePublishing {
-  background: rgba(16, 185, 129, 0.1);
+.priorityLow {
+  background: rgba(34, 197, 94, 0.1);
   color: $color-success;
 }
 
 .taskMeta {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: $spacing-md;
   margin-bottom: $spacing-sm;
 }
 
 .taskMetaItem {
-  font-size: $font-size-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-xs;
   color: $color-text-tertiary;
 }
 
-.taskStatus {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: $spacing-sm;
-  border-top: 1rpx solid $color-divider;
+.taskDeadline {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-bg-hover;
+  border-radius: $radius-xs;
 }
 
-.statusBadge {
+.taskDeadlineUrgent {
+  background: rgba(239, 68, 68, 0.1);
+  color: $color-error;
+}
+
+.taskAssignee {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-tag-bg;
+  border-radius: $radius-xs;
+  color: $color-primary;
+}
+
+.taskTopic {
+  padding: $spacing-xs $spacing-sm;
+  background: $color-bg-hover;
+  border-radius: $radius-xs;
+}
+
+.taskStatus {
+  font-size: $font-size-xs;
   padding: $spacing-xs $spacing-sm;
   border-radius: $radius-xs;
 }
 
 .statusPending {
-  background: $color-bg-hover;
+  background: rgba(156, 163, 175, 0.1);
   color: $color-text-tertiary;
 }
 
 .statusInProgress {
   background: rgba(59, 130, 246, 0.1);
-  color: $color-info;
+  color: $color-primary;
 }
 
 .statusCompleted {
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(34, 197, 94, 0.1);
   color: $color-success;
 }
 
-.statusText {
+.taskDesc {
   font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
 }
 
-.taskDeadline {
-  font-size: $font-size-sm;
-  color: $color-warning;
+.taskActions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.taskActionBtn {
+  flex: 1;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-xs;
+  text-align: center;
+  font-size: $font-size-xs;
+}
+
+.taskActionEdit {
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+}
+
+.taskActionDelete {
+  background: rgba(239, 68, 68, 0.1);
+  color: $color-error;
 }
 
 .emptyState {
@@ -292,36 +309,235 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: $spacing-xl 0;
+  padding: $spacing-xl * 2 0;
 }
 
 .emptyIcon {
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: $radius-round;
-  background: $color-bg-hover;
+  background: linear-gradient(135deg, $color-primary-light 0%, $color-primary 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: $spacing-md;
+  margin-bottom: $spacing-lg;
 }
 
 .emptyIconText {
-  font-size: 32rpx;
-  color: $color-text-tertiary;
+  font-size: 40rpx;
+  color: $color-text-white;
+  font-weight: $font-weight-semibold;
 }
 
 .emptyTitle {
-  font-size: $font-size-md;
-  color: $color-text-secondary;
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.emptyDesc {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  text-align: center;
 }
 
 .modalContent {
   padding: $spacing-lg;
 }
 
-.modalHint {
+.formGroup {
+  margin-bottom: $spacing-lg;
+}
+
+.formLabel {
   font-size: $font-size-md;
-  color: $color-text-tertiary;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.formInput {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+  min-height: 160rpx;
+}
+
+.formSelect {
+  width: 100%;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+  box-sizing: border-box;
+}
+
+.formActions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.formBtn {
+  flex: 1;
+  padding: $spacing-md;
+  border-radius: $radius-button;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.formBtnPrimary {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+  color: $color-text-white;
+}
+
+.formBtnSecondary {
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+}
+
+.formBtnDanger {
+  background: $color-error;
+  color: $color-text-white;
+}
+
+.priorityOptions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.priorityOption {
+  flex: 1;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
   text-align: center;
+  font-size: $font-size-sm;
+  border: 2rpx solid $color-border;
+}
+
+.priorityOption.active {
+  border-color: $color-primary;
+}
+
+.priorityOption.high.active {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: $color-error;
+  color: $color-error;
+}
+
+.priorityOption.medium.active {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: $color-warning;
+  color: $color-warning;
+}
+
+.priorityOption.low.active {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: $color-success;
+  color: $color-success;
+}
+
+.statusOptions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.statusOption {
+  flex: 1;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  text-align: center;
+  font-size: $font-size-sm;
+  border: 2rpx solid $color-border;
+}
+
+.statusOption.active {
+  border-color: $color-primary;
+  background: $color-tag-bg;
+  color: $color-primary;
+}
+
+.datePicker {
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+}
+
+.topicDropdown {
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-page;
+}
+
+.notificationToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+}
+
+.toggleLabel {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.toggleSwitch {
+  width: 80rpx;
+  height: 40rpx;
+  border-radius: $radius-round;
+  background: $color-border;
+  position: relative;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-primary;
+  }
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 4rpx;
+  left: 4rpx;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: $radius-round;
+  background: $color-text-white;
+  transition: all $transition-base;
+
+  &.active {
+    left: 44rpx;
+  }
 }
